@@ -1,0 +1,17 @@
+{
+  "publisher": "qub",
+  "project": "calculator-java",
+  "version": "4",
+  "java": {
+    "mainClass": "qub.QubCalculator",
+    "shortcutName": "qub-calculator",
+    "version": "1.8",
+    "dependencies": [
+      {
+        "publisher": "qub",
+        "project": "lib-java",
+        "version": "31"
+      }
+    ]
+  }
+}
