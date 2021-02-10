@@ -6,10 +6,10 @@ package qub;
 public class QubCalculatorParameters
 {
     private final CharacterWriteStream output;
-    private final VerboseCharacterWriteStream verbose;
+    private final VerboseCharacterToByteWriteStream verbose;
     private final String expressionString;
 
-    private QubCalculatorParameters(CharacterWriteStream output, VerboseCharacterWriteStream verbose, String expressionString)
+    private QubCalculatorParameters(CharacterWriteStream output, VerboseCharacterToByteWriteStream verbose, String expressionString)
     {
         PreCondition.assertNotNull(output, "output");
         PreCondition.assertNotNull(verbose, "verbose");
@@ -27,7 +27,7 @@ public class QubCalculatorParameters
      * @param expressionString The full expression string that was passed on the command line.
      * @return A new QubCalculatorParameters object.
      */
-    public static QubCalculatorParameters create(CharacterWriteStream output, VerboseCharacterWriteStream verbose, String expressionString)
+    public static QubCalculatorParameters create(CharacterWriteStream output, VerboseCharacterToByteWriteStream verbose, String expressionString)
     {
         return new QubCalculatorParameters(output, verbose, expressionString);
     }
@@ -42,10 +42,10 @@ public class QubCalculatorParameters
     }
 
     /**
-     * Get the VerboseCharacterWriteStream where verbose output will be written to.
-     * @return The VerboseCharacterWriteStream where verbose output will be written to.
+     * Get the VerboseCharacterToByteWriteStream where verbose output will be written to.
+     * @return The VerboseCharacterToByteWriteStream where verbose output will be written to.
      */
-    public VerboseCharacterWriteStream getVerbose()
+    public VerboseCharacterToByteWriteStream getVerbose()
     {
         return this.verbose;
     }

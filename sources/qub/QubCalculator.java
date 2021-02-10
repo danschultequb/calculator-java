@@ -6,10 +6,10 @@ public interface QubCalculator
     {
         PreCondition.assertNotNull(args, "args");
 
-        QubProcess.run(args, QubCalculator::getParameters, QubCalculator::run);
+        DesktopProcess.run(args, QubCalculator::getParameters, QubCalculator::run);
     }
 
-    static QubCalculatorParameters getParameters(QubProcess process)
+    static QubCalculatorParameters getParameters(DesktopProcess process)
     {
         PreCondition.assertNotNull(process, "process");
 
@@ -23,16 +23,13 @@ public interface QubCalculator
         final CommandLineParameterHelp helpParameter = parameters.addHelp();
 
         final Iterable<String> expressionParts = expressionList.getValues().await();
-        if (!expressionParts.any())
-        {
-            process.getCommandLineArguments().addNamedArgument("help");
-        }
+        helpParameter.setForceShowApplicationHelpLines(!expressionParts.any());
 
         QubCalculatorParameters result = null;
         if (!helpParameter.showApplicationHelpLines(process).await())
         {
             final CharacterWriteStream output = process.getOutputWriteStream();
-            final VerboseCharacterWriteStream verbose = verboseParameter.getVerboseCharacterWriteStream().await();
+            final VerboseCharacterToByteWriteStream verbose = verboseParameter.getVerboseCharacterToByteWriteStream().await();
 
             final String expressionString = Strings.join(' ', expressionParts);
             result = QubCalculatorParameters.create(output, verbose, expressionString);
@@ -45,7 +42,7 @@ public interface QubCalculator
         PreCondition.assertNotNull(parameters, "parameters");
 
         final CharacterWriteStream output = parameters.getOutput();
-        final VerboseCharacterWriteStream verbose = parameters.getVerbose();
+        final VerboseCharacterToByteWriteStream verbose = parameters.getVerbose();
 
         final String expressionString = parameters.getExpressionString();
         verbose.writeLine("Expression string: " + Strings.escapeAndQuote(expressionString)).await();

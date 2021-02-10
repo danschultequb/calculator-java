@@ -2,10 +2,16 @@ package qub;
 
 public class BinaryOperator
 {
-    static BinaryOperator plus = BinaryOperator.create("+", 100, (Double lhs, Double rhs) -> lhs + rhs);
-    static BinaryOperator minus = BinaryOperator.create("-", 100, (Double lhs, Double rhs) -> lhs - rhs);
-    static BinaryOperator times = BinaryOperator.create("*", 200, (Double lhs, Double rhs) -> lhs * rhs);
-    static BinaryOperator dividedBy = BinaryOperator.create("/", 200, (Double lhs, Double rhs) -> lhs / rhs);
+    public static final BinaryOperator plus = BinaryOperator.create("+", 100, (Double lhs, Double rhs) -> lhs + rhs);
+    public static final BinaryOperator minus = BinaryOperator.create("-", 100, (Double lhs, Double rhs) -> lhs - rhs);
+    public static final BinaryOperator times = BinaryOperator.create("*", 200, (Double lhs, Double rhs) -> lhs * rhs);
+    public static final BinaryOperator dividedBy = BinaryOperator.create("/", 200, (Double lhs, Double rhs) -> lhs / rhs);
+
+    public static final Iterable<BinaryOperator> operators = Iterable.create(
+        BinaryOperator.plus,
+        BinaryOperator.minus,
+        BinaryOperator.times,
+        BinaryOperator.dividedBy);
 
     private final String text;
     private final int precedence;

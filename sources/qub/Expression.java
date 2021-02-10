@@ -46,7 +46,7 @@ public interface Expression
 
         return Result.create(() ->
         {
-            characters.ensureHasStarted();
+            characters.start();
 
             if (!characters.hasCurrent())
             {
@@ -148,7 +148,7 @@ public interface Expression
 
         return Result.create(() ->
         {
-            characters.ensureHasStarted();
+            characters.start();
 
             if (!characters.hasCurrent())
             {
@@ -193,19 +193,6 @@ public interface Expression
     }
 
     /**
-     * Get the recognized BinaryOperators.
-     * @return The recognized BinaryOperators.
-     */
-    static List<BinaryOperator> getBinaryOperators()
-    {
-        return List.create(
-            BinaryOperator.plus,
-            BinaryOperator.minus,
-            BinaryOperator.times,
-            BinaryOperator.dividedBy);
-    }
-
-    /**
      * Get whether or not the provided character is the start character for any of the recognized
      * BinaryOperators.
      * @param character The character to check.
@@ -215,7 +202,7 @@ public interface Expression
     static boolean isBinaryOperatorStartCharacter(char character)
     {
         final String characterString = Characters.toString(character);
-        return Expression.getBinaryOperators().contains((BinaryOperator operator) -> Strings.startsWith(operator.toString(), characterString));
+        return BinaryOperator.operators.contains((BinaryOperator operator) -> Strings.startsWith(operator.toString(), characterString));
     }
 
     /**
@@ -229,8 +216,8 @@ public interface Expression
 
         return Result.create(() ->
         {
-            final List<BinaryOperator> possibleOperators = Expression.getBinaryOperators();
-            characters.ensureHasStarted();
+            final Iterable<BinaryOperator> possibleOperators = BinaryOperator.operators;
+            characters.start();
 
             if (!characters.hasCurrent())
             {
